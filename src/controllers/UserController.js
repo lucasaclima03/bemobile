@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import User from '../models/User';
 
 class UserController {
@@ -8,6 +9,31 @@ class UserController {
     } catch (e) {
       res.status(400).json({ message: `Ocorreu um erro${e}` });
     }
+  }
+
+  async signIn(req, res) {
+    const { email = '', password = '' } = req.body;
+    if (!email || !password) {
+      return res.status(401).json({
+        message: ['Invalid credencials'],
+      });
+    }
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      res.status(401).json({
+        message: 'User not found, please sign up',
+      });
+    }
+    if (!(await user.passwordIsValid(password))) {
+      return res.status(401).json({
+        message: ['Auth error'],
+      });
+    }
+    const { id } = user;
+    const token = jwt.sign({ id, email }, process.env.TOKEN_SECRET, {
+      expiresIn: process.env.TOKEN_EXPIRATION,
+    });
+    return res.json({ message: `Welcome user ${email}`, token });
   }
 }
 
