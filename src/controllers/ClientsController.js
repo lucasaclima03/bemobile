@@ -1,16 +1,17 @@
-import Client from '../models/Client';
+import Clients from '../models/Clients';
+import Sales from '../models/Sales';
 
-class ClientController {
+class ClientsController {
   async store(req, res) {
     try {
       const { cpf } = req.body;
-      const verify = await Client.findAll({ where: { cpf } });
+      const verify = await Clients.findAll({ where: { cpf } });
       if (verify.length > 0) {
         res.status(400).json({
           message: ['Client already exists'],
         });
       }
-      const newClient = await Client.create(req.body);
+      const newClient = await Clients.create(req.body);
       const {
         id, name, address, phone,
       } = newClient;
@@ -24,9 +25,14 @@ class ClientController {
 
   async index(req, res) {
     try {
-      const clients = await Client.findAll({
+      const clients = await Clients.findAll({
         attributes: ['id', 'name', 'cpf', 'address', 'phone'],
-        order: [['id', 'DESC']],
+        order: [['id', 'DESC'], [Sales, 'id', 'DESC']],
+        include: {
+          model: Sales,
+          attributes: ['product', 'amount', 'price', 'day'],
+
+        },
       });
       return res.json(clients);
     } catch (e) {
@@ -44,13 +50,13 @@ class ClientController {
           errors: ['Provide one ID'],
         });
       }
-      const user = await Client.findByPk(id);
+      const user = await Clients.findByPk(id);
       if (!user) {
         return res.status(400).json({
           message: ['Client dont exists'],
         });
       }
-      await Client.destroy({ where: { id } });
+      await Clients.destroy({ where: { id } });
       return res.json('Client has been deleted succesfully');
     } catch (e) {
       return res.status(400).json({
@@ -63,14 +69,14 @@ class ClientController {
     try {
       const { id } = req.params;
 
-      const client = await Client.findByPk(id);
+      const client = await Clients.findByPk(id);
 
       if (!client) {
         return res.status(400).json({
           errors: ['This client dont exists'],
         });
       }
-      await Client.update(req.body, { where: { id } });
+      await Clients.update(req.body, { where: { id } });
       return res.json({ message: 'Updated Successfully' });
     } catch (e) {
       return res.status(400).json({
@@ -96,4 +102,4 @@ class ClientController {
   }
 }
 
-export default new ClientController();
+export default new ClientsController();
