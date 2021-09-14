@@ -6,9 +6,9 @@ import loginRequired from '../middlewares/loginRequired';
 const router = new Router();
 
 router.post('/', loginRequired, clientsController.store);
-router.get('/', clientsController.index);
-router.delete('/:id', clientsController.delete);
-router.put('/:id', clientsController.update);
-router.get('/:id', clientsController.show);
+router.get('/', loginRequired, clientsController.index);
+router.delete('/:id', loginRequired, clientsController.delete);
+router.put('/:id', loginRequired, clientsController.update);
+router.get('/:id', loginRequired, clientsController.show);
 
 export default router;

@@ -1,12 +1,14 @@
 import { Router } from 'express';
 import productsController from '../controllers/ProductsController';
 
+import loginRequired from '../middlewares/loginRequired';
+
 const router = new Router();
 
-router.post('/', productsController.store);
-router.get('/', productsController.index);
-router.delete('/:id', productsController.delete);
-router.put('/:id', productsController.update);
-router.get('/:id', productsController.show);
+router.post('/', loginRequired, productsController.store);
+router.get('/', loginRequired, productsController.index);
+router.delete('/:id', loginRequired, productsController.delete);
+router.put('/:id', loginRequired, productsController.update);
+router.get('/:id', loginRequired, productsController.show);
 
 export default router;
