@@ -93,7 +93,20 @@ class ClientsController {
           errors: ['Provide one ID'],
         });
       }
-      return res.json({ message: ['ok'] });
+      const client = await Clients.findByPk(id, {
+        attributes: ['id', 'name', 'cpf', 'address', 'phone'],
+        order: [['id', 'DESC'], [Sales, 'id', 'DESC']],
+        include: {
+          model: Sales,
+          attributes: ['product', 'amount', 'price', 'day'],
+        },
+      });
+      if (!client) {
+        return res.status(400).json({
+          message: ['This client doesnt exists'],
+        });
+      }
+      return res.json(client);
     } catch (e) {
       return res.status(400).json({
         message: [`Error: ${e}`],
