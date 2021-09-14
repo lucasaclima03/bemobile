@@ -8,7 +8,7 @@ export default class Products extends Model {
         defaultValue: '',
         validate: {
           notEmpty: {
-            msg: 'Product cant be empty',
+            msg: 'Name cant be empty',
           },
         },
       },
@@ -17,7 +17,7 @@ export default class Products extends Model {
         defaultValue: '',
         validate: {
           notEmpty: {
-            msg: 'Amount cant be empty',
+            msg: 'Price cant be empty',
           },
         },
       },
@@ -26,7 +26,7 @@ export default class Products extends Model {
         defaultValue: '',
         validate: {
           notEmpty: {
-            msg: 'Price cant be empty',
+            msg: 'Description cant be empty',
           },
         },
       },

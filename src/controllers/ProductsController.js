@@ -24,7 +24,9 @@ class ProductsController {
 
   async index(req, res) {
     try {
-      const products = await Products.findAll();
+      const products = await Products.findAll({
+        order: [['name', 'ASC']],
+      });
       return res.json(products);
     } catch (e) {
       return res.json({

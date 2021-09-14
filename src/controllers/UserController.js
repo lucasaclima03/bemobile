@@ -4,8 +4,16 @@ import User from '../models/User';
 class UserController {
   async signUp(req, res) {
     try {
+      const { email } = req.body;
+      const verify = await User.findAll({ where: { email } });
+      if (verify.length > 0) {
+        res.status(400).json({
+          message: ['This email already exists'],
+        });
+      }
       const newUser = await User.create(req.body);
-      res.json(newUser);
+      const { id } = newUser;
+      res.json({ id, email });
     } catch (e) {
       res.status(400).json({ message: `Ocorreu um erro${e}` });
     }
