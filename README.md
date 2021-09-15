@@ -2,9 +2,9 @@
 ### Como utilizar a API:  
   
   
-1 - Primeiramente faça o clone deste repositório para a sua máquina  
+1 - Primeiramente faça o clone deste repositório para a sua máquina, vá até o arquivo EXAMPLE.env, e renomeie apenas para .env e adicione os dados nos locais indicados  
 
-2 - Faça o download do banco de dados que está na pasta `download_database` e faça o import no MySQLWorkbench
+2 - Faça o download do banco de dados que está na pasta `download_database` e faça o import no MySQLWorkbench.
 
 3 - Rode no terminal o comando `npm install` que instalará automaticamente todas as dependências necessárias para rodar a API e depois rode o comando `npm start` para iniciar.  
 
