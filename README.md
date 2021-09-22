@@ -99,11 +99,11 @@ passando os campos no body da requisição no formato JSON conforme o exemplo ab
 
 > YOUR-HOST:4040/products/ID
 
-16 - Para deletar um cliente, utilize o método DELETE na rota abaixo, passando na URL o id do cliente que deseja deletar
+16 - Para deletar um produto, utilize o método DELETE na rota abaixo, passando na URL o id do produto que deseja deletar
 
 > YOUR-HOST:4040/products/ID
 
-17 - Para atualizar os dados de um cliente, utilize o método PUT, na rota abaixo, fornecendo na URL o ID do cliente que deseja atualizar
+17 - Para atualizar os dados de um produto, utilize o método PUT, na rota abaixo, fornecendo na URL o ID do produto que deseja atualizar
 
 > YOUR-HOST:4040/products/ID
 
